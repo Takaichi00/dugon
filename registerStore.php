@@ -22,6 +22,9 @@
         <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
+    <!--validation CSS-->
+    <link href="./jQuery-Validation-Engine/css/validationEngine.jquery.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body>
@@ -35,11 +38,11 @@
 
         <h2>飲食店様 新規会員登録</h2>
 
-        <form class="form-horizontal" action="./registerStoreCrm.php" method="post">
+        <form class="form-horizontal" action="./registerStoreCfm.php" method="post" id="registerStoreFrom">
             <div class="form-group">
         		<label class="col-sm-2 control-label" for="InputStoreName">店舗名</label>
         		<div class="col-sm-10">
-        			<input type="text" class="form-control" id="InputStoreName" name="storeName" placeholder="店舗名">
+        			<input type="text" class="form-control validate[required]" id="InputStoreName" name="storeName" placeholder="店舗名">
         		</div>
         	</div>
             <div class="form-group">
@@ -47,7 +50,7 @@
                 <div class="col-sm-2">
                     <div class="input-group">
                         <span class="input-group-addon">〒</span>
-                        <input type="text" name="zipcode" id="zipcode" class="form-control" name="zipcode" placeholder="000-0000">
+                        <input type="text" name="zipcode" id="zipcode" class="form-control validate[required,custom[integer],minSize[7],maxSize[7]]" name="zipcode" placeholder="半角英数字(7桁)">
                     </div>
                 </div>
             </div>
@@ -108,33 +111,46 @@
             <div class="form-group">
                 <div class="col-sm-2"></div>
                 <div class="col-sm-10">
-                    <input type="text" name="addr1" id="addr1" class="form-control" name="addr1" placeholder="市区町村名">
+                    <input type="text" name="addr1" id="addr1" class="form-control validate[required]" name="addr1" placeholder="市区町村名">
                     <p class="help-block">住所は2つに分けてご記入ください。</p>
-                    <input type="text" name="addr2" id="addr2" class="form-control" name="addr2" placeholder="番地・ビル名">
+                    <input type="text" name="addr2" id="addr2" class="form-control validate[required]" name="addr2" placeholder="番地・ビル名">
                     <p class="help-block">マンション名は必ず記入してください。</p>
                 </div>
             </div>
-        	<div class="form-group">
-        		<label class="col-sm-2 control-label" for="InputEmail">メールアドレス</label>
-        		<div class="col-sm-10">
-        			<input type="email" class="form-control" id="InputEmail" name="mailAddress" placeholder="メールアドレス">
-        		</div>
-        	</div>
             <div class="form-group">
         		<label class="col-sm-2 control-label" for="InputTel">電話番号</label>
         		<div class="col-sm-10">
-        			<input type="tel" class="form-control" id="InputTel" name="tel" placeholder="電話番号">
+        			<input type="tel" class="form-control validate[required,custom[integer]]" id="InputTel" name="tel" placeholder="電話番号">
+        		</div>
+        	</div>
+        	<div class="form-group">
+        		<label class="col-sm-2 control-label" for="InputEmail">メールアドレス</label>
+        		<div class="col-sm-10">
+        			<input type="email" class="form-control validate[required,custom[email]]" id="InputEmail" name="mailAddress" placeholder="メールアドレス">
+        		</div>
+        	</div>
+            <div class="form-group">
+        		<label class="col-sm-2 control-label" for="InputEmail">メールアドレス(確認)</label>
+        		<div class="col-sm-10">
+        			<input type="email" class="form-control validate[required,equals[InputEmail]]" id="re_InputEmail" name="re_mailAddress" placeholder="メールアドレス(確認)">
         		</div>
         	</div>
         	<div class="form-group">
         		<label class="col-sm-2 control-label" for="InputPassword">パスワード</label>
         		<div class="col-sm-10">
-        			<input type="password" class="form-control" id="InputPassword" name="password" placeholder="パスワード">
+        			<input type="password" class="form-control validate[required]" id="InputPassword" name="password" placeholder="パスワード">
+        		</div>
+        	</div>
+            <div class="form-group">
+        		<label class="col-sm-2 control-label" for="InputPassword">パスワード(確認)</label>
+        		<div class="col-sm-10">
+        			<input type="password" class="form-control validate[required,equals[InputPassword]]" id="re_InputPassword" name="re_password" placeholder="パスワード(確認)">
         		</div>
         	</div>
         	<div class="form-group">
         		<div class="col-sm-offset-2 col-sm-10">
-        			<button type="submit" class="btn btn-default">確認</button>
+                    <button type="submit" class="btn btn-default">確認</button>
+        			<a href="./loginStore.php" class="btn btn-default">ログイン画面へ</a>
         		</div>
         	</div>
         </form>
@@ -142,6 +158,17 @@
     <!-- /.container -->
     <!-- jQuery -->
     <script src="js/jquery.js"></script>
+
+    <!--validation js-->
+    <script src="./jQuery-Validation-Engine/js/jquery.validationEngine.js"></script>
+    <script src="./jQuery-Validation-Engine/js/languages/jquery.validationEngine-ja.js"></script>
+    <script>
+    $(function(){
+        jQuery("#registerStoreFrom").validationEngine('attach', {
+            promptPosition:"inline"
+        });
+    });
+    </script>
 
     <!-- Bootstrap Core JavaScript -->
     <script src="js/bootstrap.min.js"></script>

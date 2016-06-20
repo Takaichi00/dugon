@@ -29,6 +29,9 @@
                 <li>
                     <a href="./loginStore.php">飲食店様へ</a>
                 </li>
+                <li>
+                    <a href="./registerItem.php">掲載する</a>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
